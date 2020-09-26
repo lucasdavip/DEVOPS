@@ -1,3 +1,3 @@
 ## DEVOPS
 
-Ferramentas e ambientes de automação. 
+Ferramentas e ambientes com automação. 
