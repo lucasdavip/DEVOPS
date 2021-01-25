@@ -6,7 +6,9 @@ module "create_vpc" {
 }
 
 module "create_subnets" {
-  source  = "./modules/network/subnet"
-  vpc_id  = module.create_vpc.vpc_id
-  subnets = var.subnets
+  source      = "./modules/network/subnet"
+  vpc_id      = module.create_vpc.vpc_id
+  subnets     = var.subnets
+  environment = var.environment
+  project     = var.project
 }
