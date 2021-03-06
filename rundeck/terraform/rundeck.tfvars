@@ -1,0 +1,10 @@
+instance_type = "t3.medium"
+tagname = "rundeckDocker"
+vpc_id = "vpc-a305f8c8"
+cidr_block_4440 = ["0.0.0.0/0"]
+cidr_block_443 = ["0.0.0.0/0"]
+cidr_block_ssh = ["0.0.0.0/0"]
+az = "us-east-2a"
+volume_size = 20
+device_name = "/dev/sdh"
+key_ssh = "lgomes"
