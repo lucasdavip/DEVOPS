@@ -3,6 +3,19 @@
   become: yes
   remote_user: ubuntu
   tasks:
+  - name: Mount disk
+    command: mkfs.xfs /dev/nvme1n1
+  - name: Create dir rundeck
+    command: mkdir /rundeck
+  - name: Mount rundeck
+    mount:
+      path: /dev/nvme1n1
+      src:  /rundeck
+      fstype: xfs
+      opts: defaults
+      state: present
+  - name: Permissao para rundeck
+    command: chown ubuntu:ubuntu /rundeck
   - name: Download script docker
     get_url:
       url: https://get.docker.com
@@ -11,4 +24,4 @@
   - name: Install docker
     command: bash /tmp/docker.sh
   - name: Install rundeck
-    command: docker run -d --name some-rundeck -p 4440:4440 -v data:/home/rundeck/server/data rundeck/rundeck:3.3.10
+    command: docker run -d --name some-rundeck -p 4440:4440 -v /rundeck:/home/rundeck/server/data rundeck/rundeck:3.3.10

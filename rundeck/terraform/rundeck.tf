@@ -112,17 +112,3 @@ resource "null_resource" "configurandoRundeck" {
 
   depends_on = [null_resource.configurandoAnsibleHost]
 }
-
-#  provisioner "file" {
-#    source      = "../shellScript/create_rundeck.sh"
-#    destination = "/tmp/create_rundeck.sh"
-#
-#    connection {
-#      type        = "ssh"
-#      user        = var.user_ssh
-#      private_key = var.private_key
-#      host        = aws_instance.rundeck.public_ip
-#    }
-#  }
-
-
