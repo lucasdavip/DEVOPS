@@ -1,0 +1,14 @@
+---
+- hosts: rundeck
+  become: yes
+  remote_user: ubuntu
+  tasks:
+  - name: Download script docker
+    get_url:
+      url: https://get.docker.com
+      dest: /tmp/docker.sh
+      mode: '777'
+  - name: Install docker
+    command: bash /tmp/docker.sh
+  - name: Install rundeck
+    command: docker run -d --name some-rundeck -p 4440:4440 -v data:/home/rundeck/server/data rundeck/rundeck:3.3.10

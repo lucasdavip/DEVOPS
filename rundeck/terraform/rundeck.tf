@@ -90,3 +90,39 @@ resource "aws_volume_attachment" "ebs_att" {
     aws_instance.rundeck
   ]
 }
+
+resource "null_resource" "configurandoAnsibleHost" {
+
+  provisioner "local-exec" {
+    command = "echo ${aws_instance.rundeck.public_ip} >> ../ansible/hosts"
+  }
+
+  depends_on = [
+    aws_ebs_volume.rundeck,
+    aws_instance.rundeck,
+    aws_volume_attachment.ebs_att
+  ]
+}
+
+resource "null_resource" "configurandoRundeck" {
+
+  provisioner "local-exec" {
+    command = "ansible-playbook --private-key ../lgomes.pem -i ../ansible/hosts ../ansible/create_rundeck.yml"
+  }
+
+  depends_on = [null_resource.configurandoAnsibleHost]
+}
+
+#  provisioner "file" {
+#    source      = "../shellScript/create_rundeck.sh"
+#    destination = "/tmp/create_rundeck.sh"
+#
+#    connection {
+#      type        = "ssh"
+#      user        = var.user_ssh
+#      private_key = var.private_key
+#      host        = aws_instance.rundeck.public_ip
+#    }
+#  }
+
+
